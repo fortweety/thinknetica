@@ -9,7 +9,7 @@ Shipyard.prototype.paint = function(boats, color) {
 
 Shipyard.prototype.change = function(boat, correctType) {
   console.log(boat.type)
-  if (boat.type == correctType) {
+  if (boat instanceof correctType) {
     console.log('boat was changed');
   } else {
     console.log('wrong boat type change');
@@ -18,24 +18,18 @@ Shipyard.prototype.change = function(boat, correctType) {
 
 Shipyard.prototype.repair = function(boat, correctType) {
   console.log(boat.type)
-  if (boat.type == correctType) {
+  if (boat instanceof correctType) {
     console.log('boat was repair');
   } else {
     console.log('wrong boat type repair');
   }
 }
 
-Shipyard.prototype.createBoat = function(type, p1, p2) {
-  if (type == 'motor') {
-    let obj = new MotorBoat(p1, p2)
+Shipyard.prototype.createBoat = function(type, correctType, inst, p1, p2) {
+  if (type == correctType) {
+    let obj = new inst(p1, p2)
     obj.type = type
     return obj
-  } else if (type == 'sail') {
-    let obj = new SailBoat(p1, p2)
-    obj.type = type
-    return obj
-  } else {
-    console.log('wrong boat type')
   }
 }
 
@@ -45,15 +39,15 @@ const MotorShipyard = function() {
 MotorShipyard.prototype = new Shipyard();
 
 MotorShipyard.prototype.change = function(boat){
-  return Shipyard.prototype.change.call(this, boat, 'motor')
+  return Shipyard.prototype.change.call(this, boat, MotorBoat)
 }
 
 MotorShipyard.prototype.repair = function(boat){
-  return Shipyard.prototype.repair.call(this, boat, 'motor')
+  return Shipyard.prototype.repair.call(this, boat, MotorBoat)
 }
 
 MotorShipyard.prototype.createBoat = function(type, param1, param2){
-  return Shipyard.prototype.createBoat.call(this, type, param1, param2)
+  return Shipyard.prototype.createBoat.call(this, type, 'motor', MotorBoat, param1, param2)
 }
 
 const SailShipyard = function() {
@@ -62,15 +56,15 @@ const SailShipyard = function() {
 SailShipyard.prototype = new Shipyard();
 
 SailShipyard.prototype.change = function(boat){
-  return Shipyard.prototype.change.call(this, boat, 'sail')
+  return Shipyard.prototype.change.call(this, boat, SailBoat)
 }
 
 SailShipyard.prototype.repair = function(boat){
-  return Shipyard.prototype.repair.call(this, boat, 'sail')
+  return Shipyard.prototype.repair.call(this, boat, SailBoat)
 }
 
 SailShipyard.prototype.createBoat = function(type, param1, param2){
-  return Shipyard.prototype.createBoat.call(this, type, param1, param2)
+  return Shipyard.prototype.createBoat.call(this, type, 'sail', SailBoat, param1, param2)
 }
 
 const Boat = function(type, color) {

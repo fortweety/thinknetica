@@ -28,7 +28,6 @@ Shipyard.prototype.repair = function(boat, correctType) {
 Shipyard.prototype.createBoat = function(type, correctType, inst, p1, p2) {
   if (type == correctType) {
     let obj = new inst(p1, p2)
-    obj.type = type
     return obj
   }
 }
@@ -82,12 +81,13 @@ const SailBoat = function(numberOfMasts, totalSailArea) {
   this.totalSailArea = totalSailArea;
 }
 
-MotorBoat.prototype = new Boat();
-SailBoat.prototype = new Boat();
+MotorBoat.prototype = new Boat('motor');
+SailBoat.prototype = new Boat('sail');
 
 const sailShips = new SailShipyard();
 const boat1 = sailShips.createBoat('sail', '2', '20')
 console.log(boat1)
+console.log(boat1.type)
 boat1.color = 'green'
 console.log(boat1.color)
 console.log(sailShips.repair(boat1))
@@ -97,6 +97,7 @@ console.log(sailShips.change(boat1))
 const motorShips = new MotorShipyard();
 const boat2 = motorShips.createBoat('motor', '400', 'steal')
 console.log(boat2)
+console.log(boat2.type)
 boat2.color = 'gray'
 console.log(boat2.color)
 console.log(motorShips.repair(boat2))

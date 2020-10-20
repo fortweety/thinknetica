@@ -41,9 +41,9 @@ const ExEmployer = function(endDate) {
   this.endDate = endDate;
 }
 
-Employer.prototype = new Human();
-ActingEmployer.prototype = new Employer();
-ExEmployer.prototype = new Employer();
+Employer.prototype = new Human('Alex', 'Willer', '89000000000', 'Russia');
+ActingEmployer.prototype = new Employer('it', '100', '$', '17-11-1995', 'it');
+ExEmployer.prototype = new Employer('it', '100', '$', '17-11-1995', 'it');
 
 const employer = new Employer();
 const ex = new ExEmployer();
@@ -52,3 +52,4 @@ console.log(Object.getPrototypeOf(employer))
 console.log(ex.__proto__)
 console.log(ex.__proto__.__proto__)
 console.log(ex.sleep())
+console.log(ex.name)

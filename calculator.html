@@ -3,6 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+      .calculator {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        margin-left: 800px;
+        margin-top: 500px;
+      }
+
+      .result {
+        width: 90%;
+        border: 1px solid black;
+        min-height: 20px;
+        margin-bottom: 15px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .buttons > span {
+        width: 25%;
+        margin-right: 3%;
+        padding: 4px;
+        font-size: 28px;
+        border: 1px solid black;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div class="calculator">
@@ -23,35 +54,3 @@
     <script src='calculator.js'></script>
   </body>
 </html>
-
-<style media="screen">
-  .calculator {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    margin-left: 800px;
-    margin-top: 500px;
-  }
-
-  .result {
-    width: 90%;
-    border: 1px solid black;
-    min-height: 20px;
-    margin-bottom: 15px;
-  }
-
-  .buttons {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .buttons > span {
-    width: 25%;
-    margin-right: 3%;
-    padding: 4px;
-    font-size: 28px;
-    border: 1px solid black;
-    text-align: center;
-  }
-</style>

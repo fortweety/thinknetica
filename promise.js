@@ -1,36 +1,33 @@
 class TestPromise {
     constructor(main) {
-
         this.callbacks = [];
-        this.state = 'pending'
+        this.state = 'pending';
+        this.value = null;
 
-        const resolve = resolveValue => {
-            if (this.value === undefined) {
+        const resolve = (resolveValue, resType = 'resolve') => {
+            if (this.value === null) {
               this.value = resolveValue;
               this.state = 'fulfilled';
-
               this.addCallbacks();
             }
-
         };
 
-        const reject = rejectValue => {
+        const reject = (rejectValue, resType = 'reject') => {
             if (this.value === null) {
               this.value = rejectValue;
               this.state = 'rejected';
-
               this.addCallbacks();
             }
-
         }
 
-        main(resolve);
+        main(resolve, reject);
     }
 
     then(cb) {
-        const next = new TestPromise(resolve => {
-            this.callbacks.push(x => resolve(cb(x)));
-        });
+
+        const next = new TestPromise((resolve, reject) => {
+          this.callbacks.push(x => this.state == 'fulfilled' ? resolve(cb(x)) : reject(cb(x)))
+        })
 
         return next;
     }
@@ -46,22 +43,21 @@ class TestPromise {
 const makePizza = (topping, sauce) => {
   const pizzaPromise = new TestPromise((resolve, reject) => {
     setTimeout(() => {
-      resolve(`${topping} and ${sauce}`)
-    }, 500);
+      reject(`${topping} and ${sauce}`)
+    }, 700);
     setTimeout(() => {
       resolve(`${topping} villo ${sauce}`)
-    }, 800);
+    }, 600);
   });
   return pizzaPromise
 }
 
 const pizza = makePizza('apple', 'juice').then(pizza => {
   console.log('Pizza is ready', pizza);
-  return pizza
+  return pizza;
 })
 
-console.log(pizza)
 
 setTimeout(() => {
   console.log(pizza)
-}, 800);
+}, 1500);

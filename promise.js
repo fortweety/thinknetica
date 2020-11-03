@@ -23,10 +23,10 @@ class TestPromise {
         main(resolve, reject);
     }
 
-    then(cb) {
+    then(onResolve, onReject) {
 
         const next = new TestPromise((resolve, reject) => {
-          this.callbacks.push(x => this.state == 'fulfilled' ? resolve(cb(x)) : reject(cb(x)))
+          this.callbacks.push(x => this.state == 'fulfilled' ? resolve(onResolve(x)) : reject(onReject(x)))
         })
 
         return next;

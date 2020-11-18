@@ -23,6 +23,18 @@ const memoryCacher = function() {
   }
 }
 
+function displayImages(images) {
+	let result = document.querySelector('.result')
+  result.innerHTML = '';
+  for(let i = 0; i < 10 ; i++) {
+  		let image = document.createElement('img')
+      image.src = images[i].images.preview_webp.url
+      image.width = images[i].images.preview_webp.width
+      image.height = images[i].images.preview_webp.height
+      result.append(image)
+  }
+}
+
 
 const memory = new memoryCacher();
 const ApiCall = (url) => {
@@ -62,14 +74,15 @@ const inputGifyFinder = document.querySelector('#searchfield');
 inputGifyFinder.addEventListener('change', function() {
 
     if (memory.hasQueryKey(this.value)) {
-      console.log(memory.returnResultFromMemory(this.value))
+    	displayImages(memory.returnResultFromMemory(this.value))
     } else {
       fetch(ApiCall(getGifUrl(this.value))
       .then(res => {
-      memory.addToMemory(this.value, res);
-      return res
+      memory.addToMemory(this.value, res.data);
+      return res.data
       })
-      .then(res =>console.log(res)))
+      .then(res => {
+        displayImages(res)
+      }))
     }
-    console.log(memory.memory)
 })
